@@ -1,7 +1,7 @@
-// Filename: userClass.Java
+// Filename: staffClass.Java
 // Author: Luke Watt
 // Programmers: Luke Watt, Ruan Swart, Da Yuan
-// Date Started: 30/5/2019
+// Date Started: 3/6/2019
 // Assignment 3
 
 import java.io.*;
@@ -23,12 +23,12 @@ import java.util.Map.Entry;
 import UserBean.User;
 
 // Sets our URL ----- NOTE: THIS NEEDS TO BE CHANGED TO THE SPECIFIED URL BY THE CUSTOMER
-@WebServlet(urlPatterns = {"/ReportIssue"})
+@WebServlet(urlPatterns = {"/staffportal"})
 
-public class userClass extends HttpServlet
+public class staffClass extends HttpServlet
 {
    // Constructor ----------------------------------
-   private String person = "NewUser"; 
+   private String person = "NewStaffMember"; 
    private int triggerOffer, sessionLoaded = 0; 
    private String username = person + ".ser";
    
@@ -41,7 +41,7 @@ public class userClass extends HttpServlet
        RequestDispatcher dispatcher;
 	   
 	                      // The homepage shall be entered here
-       dispatcher = request.getRequestDispatcher("WEB-INF/JSP/HomePage.jsp");
+       dispatcher = request.getRequestDispatcher("WEB-INF/JSP/StaffHomePage.jsp"); 
        dispatcher.forward(request, response); 
 	  }		 
 	  
@@ -74,10 +74,10 @@ public class userClass extends HttpServlet
      // Serialisation system -----------------------------------
      RequestDispatcher dispatcher;
 
-        if (request.getParameterMap().containsKey("userLoaded"))
+        if (request.getParameterMap().containsKey("staffMemberLoaded"))
         {
         
-           person = request.getParameter("userLoaded");
+           person = request.getParameter("staffMemberLoaded");
            username = person + ".ser";
 
            System.out.println(person + " Found");
@@ -101,48 +101,48 @@ public class userClass extends HttpServlet
             if (user.logout()) 
             {
                // Goes to logout page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Logout.jsp");
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Logout.jsp");  
             }
-            else if (request.getParameterMap().containsKey("MainMenu"))
+            else if (request.getParameterMap().containsKey("LoginStaff"))  
             {           
-               // Goes to the Main Menu
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MainMenu.jsp");
-            }       
-            else if (request.getParameterMap().containsKey("Login"))
-            {           
-               // Goes to the Login Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Login.jsp");
+               // Goes to the Staff Login Page
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/LoginAsStaff.jsp");  
             }
-            else if (request.getParameterMap().containsKey("Register")) 
+            else if (request.getParameterMap().containsKey("StaffMainMenu")) 
             {
                // Goes to the Register Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Register.jsp");
-            }
-            else if (request.getParameterMap().containsKey("ReportIssue")) 
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/StaffMainMenu.jsp");
+            }     
+            else if (request.getParameterMap().containsKey("IssueIndex")) 
             {
-               // Goes to the Issue Reporting Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/ReportIssue.jsp");
-            }            
+               // Goes to the Issue Page
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/IssueIndex.jsp");
+            }         
             else if (request.getParameterMap().containsKey("Issue")) 
             {
                // Goes to the Issue Page
                dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Issue.jsp");
             }         
+            else if (request.getParameterMap().containsKey("ArticleIndex")) 
+            {
+               // Goes to the Article Page
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/ArticleIndex.jsp");
+            }         		
             else if (request.getParameterMap().containsKey("Article")) 
             {
                // Goes to the Article Page
                dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Article.jsp");
-            }         			
-            else if (request.getParameterMap().containsKey("MyIssues")) 
+            }           	        			
+            else if (request.getParameterMap().containsKey("KnowledgeBaseArticle")) 
             {
-               // Goes to the MyIssues Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MyIssuesPage.jsp");
-            }         			
+               // Goes to Saving Page
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/KnowledgeBaseArticle.jsp");
+            } 
             else if (request.getParameterMap().containsKey("MarkIssue")) 
             {
                // Goes to Saving Page
                dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MarkIssue.jsp");
-            }         					
+            } 
             else if (request.getParameterMap().containsKey("saveSession")) // NOTE: I may make this automatic
             {
                // Gets the entered username parameter and sets it to username
@@ -173,6 +173,8 @@ public class userClass extends HttpServlet
       catch(ClassNotFoundException e)
       {
          System.out.println("Exception");
+
+         // NOTE: THIS NEEDS A REDIRECT FUNCTION TO THE ERROR PAGE
       }
 
      }	  
