@@ -7,7 +7,7 @@ public class Config {
 	public static Connection getConnection() throws NamingException, SQLException {
 		try {
 			DataSource datasource =
-				(DataSource)new InitialContext().lookup("java:/comp/env/SENG2050_lab06");
+				(DataSource)new InitialContext().lookup("java:/comp/env/ourDatabase");
 
 			Connection connection = datasource.getConnection();
 			return connection;
