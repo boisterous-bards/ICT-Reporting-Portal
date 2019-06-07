@@ -1,4 +1,4 @@
 <Context>
-   <Resource name = "RESOURCE_NAME">
-   <url = "jddc: mysql//teachdb/c(Student Number)_db/>
+   <Resource name = "ourDatabase">
+   <url = "jdbc:mysql://teachdb/c3282591_db/>
 </Context>
