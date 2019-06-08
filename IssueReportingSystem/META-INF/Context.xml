@@ -1,0 +1,4 @@
+<Context>
+   <Resource name = "ourDatabase"
+   url = "jdbc:mysql://teachdb/c3282591_db" />
+</Context>
