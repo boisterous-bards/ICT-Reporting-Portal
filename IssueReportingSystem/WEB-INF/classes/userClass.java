@@ -28,9 +28,9 @@ import UserBean.User;
 public class userClass extends HttpServlet
 {
    // Constructor ----------------------------------
-   private String person = "NewUser"; 
+   private String newUser = "NewUser"; 
    private int triggerOffer, sessionLoaded = 0; 
-   private String username = person + ".ser";
+   private String username = newUser + ".ser";
    
 // DoGet Block -------------------------------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ public class userClass extends HttpServlet
        RequestDispatcher dispatcher;
 	   
 	                      // The homepage shall be entered here
-       dispatcher = request.getRequestDispatcher("WEB-INF/JSP/HomePage.jsp");
+       dispatcher = request.getRequestDispatcher("WEB-INF/JSP/homepage.jsp");
        dispatcher.forward(request, response); 
 	  }		 
 	  
@@ -52,16 +52,16 @@ public class userClass extends HttpServlet
 	   { 
         // Initiates the user class and session
         HttpSession session = request.getSession();         
-        Person person = (Person) session.getAttribute("person");
+        User user = (User) session.getAttribute("person");
 
         // Creates a new person object if there is nothing in the class
-        if (person == null)
+        if (user == null)
         {
-           person = new Person();
+           user = new User();
         }
 
         // Assigns the current session to the user class
-        session.setAttribute("person", person);
+        session.setAttribute("user", user);
 
         // initiates our input stream for the serialised user file
         FileInputStream inputFile;
@@ -77,33 +77,33 @@ public class userClass extends HttpServlet
         if (request.getParameterMap().containsKey("userLoaded"))
         {
         
-           person = request.getParameter("userLoaded");
-           username = person + ".ser";
+           username = request.getParameter("userLoaded");
+           username = username + ".ser";
 
-           System.out.println(person + " Found");
+           System.out.println(user + " Found");
 		   
 		   // NEED TO CREATE IF/ELSE FOR PERSON NOT FOUND ERROR
 
            inputFile = new FileInputStream(username);
            in = new ObjectInputStream(inputFile);
 
-           person = (Person) in.readObject();
-           session.setAttribute("person", person);
+           user = (User) in.readObject();
+           session.setAttribute("user", user);
 
         }
         else
         {
-            System.out.println("In current session of: " + person); 
+            System.out.println("In current session of: " + user); 
         }
            
 // JSP Page Redirector Logic Block ------------------------------------------------------------------------------------
 			
-            if (user.logout()) 
+/*            if (user.logout()) 
             {
                // Goes to logout page
                dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Logout.jsp");
-            }
-            else if (request.getParameterMap().containsKey("MainMenu"))
+            }*/
+            if (request.getParameterMap().containsKey("MainMenu"))
             {           
                // Goes to the Main Menu
                dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MainMenu.jsp");
@@ -111,12 +111,12 @@ public class userClass extends HttpServlet
             else if (request.getParameterMap().containsKey("Login"))
             {           
                // Goes to the Login Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Login.jsp");
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/login.jsp");
             }
             else if (request.getParameterMap().containsKey("Register")) 
             {
                // Goes to the Register Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Register.jsp");
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/reg.jsp");
             }
             else if (request.getParameterMap().containsKey("ReportIssue")) 
             {
@@ -126,7 +126,7 @@ public class userClass extends HttpServlet
             else if (request.getParameterMap().containsKey("Issue")) 
             {
                // Goes to the Issue Page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Issue.jsp");
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/IssueCategoryPage.jsp");
             }         
             else if (request.getParameterMap().containsKey("Article")) 
             {
@@ -146,8 +146,8 @@ public class userClass extends HttpServlet
             else if (request.getParameterMap().containsKey("saveSession")) // NOTE: I may make this automatic
             {
                // Gets the entered username parameter and sets it to username
-               person = request.getParameter("saveSession");
-               username = person + ".ser";
+               username = request.getParameter("saveSession");
+               username = username + ".ser";
 
                // Starts a new input stream to acquire the serialised person object
                // for the specified user
@@ -163,7 +163,7 @@ public class userClass extends HttpServlet
             }                     
             else
             {
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/...................jsp");  
+               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/error.jsp");  
             }
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -173,6 +173,11 @@ public class userClass extends HttpServlet
       catch(ClassNotFoundException e)
       {
          System.out.println("Exception");
+
+       //  dispatcher = request.getRequestDispatcher("WEB-INF/JSP/error.jsp");
+
+      //   dispatcher.forward(request, response); 
+
       }
 
      }	  
