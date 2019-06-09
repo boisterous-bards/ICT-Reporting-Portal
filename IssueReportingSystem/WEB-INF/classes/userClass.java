@@ -72,7 +72,7 @@ public class userClass extends HttpServlet
      { 
      	Connection connection = Config.getConnection();
 	Statment s = connection.createStatment();
-	ResultSet rs = s.executeQuery("SLECT * FROM users");
+	ResultSet rs = s.executeQuery("SELECT * FROM users");
 	
 	while (rs.next())
 	{
