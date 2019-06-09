@@ -8,6 +8,7 @@ public class User extends HashMap<String, Integer> implements java.io.Serializab
 {
    // Constructor
    
+   
    public User()
    {
       super();
@@ -17,6 +18,9 @@ public class User extends HashMap<String, Integer> implements java.io.Serializab
    
   public int issue(String reportedIssue, int issueNo) 
   {
+    
+
+
     return 0;
   }
 	

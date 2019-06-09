@@ -1,3 +1,10 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page import="java.util.Iterator" %>
+<%@page import="java.util.Map" %>
+<%@page import="java.util.Map.Entry" %>
+<%@page import="UserBean.User" %>
+<jsp:useBean id="user" class="UserBean.User" scope="session"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +40,7 @@
 	</div>
 	
 </header>
-<div id="page-header" class="uon-landing-page-header" style="background-image: url(circle.png);">
+<div id="page-header" class="uon-landing-page-header" style="background-image: url(images/circle.png);">
 	<div class="header-tint">
 		<div class="inner">
 			<span class="page-header-title"></span>
@@ -55,7 +62,15 @@
 <div class="body-content">
 <h1> Top 10 Articles</h1>	
 <div class="message message-alert">
-	<a href="articlecontent.jsp">
+
+    <!-- Original Code -->
+	<!-- <a href="articlecontent.jsp"> -->
+
+    <!-- Calls the article content page -->
+    <form action="ReportIssue" method="POST">
+       <input name="articlecontent" type="submit" value="Click here to learn more"/>
+    </form>
+
 	<h1>Network</h1>
 <p>We have received advice that on occasion some applicants have experienced issues when viewing the Job Vacancies page and/or an error message occurs that affects the application process. We are currently investigating these matters and we hope to resolve them soon.</p>
 <p>We have received advice that on occasion some applicants have experienced issues when viewing the Job Vacancies page and/or an error message occurs that affects the application process. We are currently investigating these matters and we hope to resolve them soon.</p>
@@ -64,7 +79,15 @@
 
 </div>
 <div class="message message-alert">
-	<a href="articlecontent.jsp">
+
+    <!-- Original Code -->
+	<!-- <a href="articlecontent.jsp"> -->
+
+    <!-- Calls the article content page -->
+    <form action="ReportIssue" method="POST">
+       <input name="articlecontent" type="submit" value="Click here to learn more"/>
+    </form>
+
 	<h1>Software</h1>
 <p>We have received advice that on occasion some applicants have experienced issues when viewing the Job Vacancies page and/or an error message occurs that affects the application process. We are currently investigating these matters and we hope to resolve them soon.</p>
 <p>We have received advice that on occasion some applicants have experienced issues when viewing the Job Vacancies page and/or an error message occurs that affects the application process. We are currently investigating these matters and we hope to resolve them soon.</p>

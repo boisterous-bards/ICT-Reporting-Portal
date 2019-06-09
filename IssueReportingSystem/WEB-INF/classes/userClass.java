@@ -21,6 +21,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import UserBean.User;
+import configurator.Config;
+import java.sql.*;
+import java.sql.Connection;
 
 // Sets our URL ----- NOTE: THIS NEEDS TO BE CHANGED TO THE SPECIFIED URL BY THE CUSTOMER
 @WebServlet(urlPatterns = {"/ReportIssue"})
@@ -44,7 +47,7 @@ public class userClass extends HttpServlet
        dispatcher = request.getRequestDispatcher("WEB-INF/JSP/homepage.jsp");
        dispatcher.forward(request, response); 
 	  }		 
-	  
+
 // DoPost Block -------------------------------------------------------------------------------------------------
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -52,7 +55,7 @@ public class userClass extends HttpServlet
 	   { 
         // Initiates the user class and session
         HttpSession session = request.getSession();         
-        User user = (User) session.getAttribute("person");
+        User user = (User) session.getAttribute("name");
 
         // Creates a new person object if there is nothing in the class
         if (user == null)
@@ -70,57 +73,52 @@ public class userClass extends HttpServlet
      // Try/Catch for our input stream.
      try 
      { 
-     	Connection connection = Config.getConnection();
-	Statment s = connection.createStatment();
-	ResultSet rs = s.executeQuery("SELECT * FROM users");
-	
-	while (rs.next())
-	{
-		if (request.getParameter("name").equals(rs.getString("username")))
-		{
-			if (request.getParameter("password").equals(rs.getString("password")))
-			{
-				// Goes to the Main Menu
-              			 dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MainMenu.jsp");
-			}						
-	}
+
      // Serialisation system -----------------------------------
      RequestDispatcher dispatcher;
 
-        if (request.getParameterMap().containsKey("userLoaded"))
+        if (request.getParameterMap().containsKey("name"))
         {
         
-           username = request.getParameter("userLoaded");
+           username = request.getParameter("name");
            username = username + ".ser";
 
            System.out.println(username + " Found");
-		   
-		   // NEED TO CREATE IF/ELSE FOR PERSON NOT FOUND ERROR
 
            inputFile = new FileInputStream(username);
            in = new ObjectInputStream(inputFile);
 
            user = (User) in.readObject();
            session.setAttribute("user", user);
-
         }
         else
         {
-            System.out.println("In current session of: " + user); 
+            System.out.println("In current session of: " + username); 
+            dispatcher = request.getRequestDispatcher("WEB-INF/JSP/error.jsp");
         }
-           
+    
+      // Establishes database connection
+/*         Connection connection = Config.getConnection();
+         Statement s = connection.createStatement();
+         ResultSet rs = s.executeQuery("SELECT * FROM users");*/
+
+
 // JSP Page Redirector Logic Block ------------------------------------------------------------------------------------
 			
-/*            if (user.logout()) 
-            {
-               // Goes to logout page
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/Logout.jsp");
-            }*/
-            if (request.getParameterMap().containsKey("MainMenu"))
-            {           
-               // Goes to the Main Menu
-               dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MainMenu.jsp");
-            }       
+           if (request.getParameterMap().containsKey("MainMenu"))
+           {       
+/*              while (rs.next())
+              {
+                 if (request.getParameter("name").equals(rs.getString("username")))
+                 {
+                    if (request.getParameter("password").equals(rs.getString("password")))
+                    {*/
+                       // Goes to the Main Menu
+                       dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MainMenu.jsp");
+/*                    }           
+                 }
+               }*/
+            }
             else if (request.getParameterMap().containsKey("Login"))
             {           
                // Goes to the Login Page
@@ -178,7 +176,7 @@ public class userClass extends HttpServlet
             {
                dispatcher = request.getRequestDispatcher("WEB-INF/JSP/error.jsp");  
             }
-
+      
 // --------------------------------------------------------------------------------------------------------------------
 
             dispatcher.forward(request, response); 
@@ -190,7 +188,6 @@ public class userClass extends HttpServlet
        //  dispatcher = request.getRequestDispatcher("WEB-INF/JSP/error.jsp");
 
       //   dispatcher.forward(request, response); 
-
       }
 
      }	  

@@ -50,11 +50,11 @@
 	
 	<table align="center" border="0">
 		<tr>
-			<td ><input type="submit" value="Username" class="table-menu"></td>
+			<td ><input type="submit" value="username" class="table-menu"></td>
 			<td><input type="text" name="name" class="table-menu"></td>
 		</tr>
 		<tr>
-			<td ><input type="submit" value="Password" class="table-menu"></td>
+			<td ><input type="submit" value="password" class="table-menu"></td>
 			<td><input type="text" name="password" class="table-menu"></td>
 		</tr>
 	</table>
