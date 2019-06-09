@@ -70,7 +70,20 @@ public class userClass extends HttpServlet
      // Try/Catch for our input stream.
      try 
      { 
-	 
+     	Connection connection = Config.getConnection();
+	Statment s = connection.createStatment();
+	ResultSet rs = s.executeQuery("SLECT * FROM users");
+	
+	while (rs.next())
+	{
+		if (request.getParameter("name").equals(rs.getString("username")))
+		{
+			if (request.getParameter("password").equals(rs.getString("password")))
+			{
+				// Goes to the Main Menu
+              			 dispatcher = request.getRequestDispatcher("WEB-INF/JSP/MainMenu.jsp");
+			}						
+	}
      // Serialisation system -----------------------------------
      RequestDispatcher dispatcher;
 
